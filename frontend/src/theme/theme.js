@@ -13,12 +13,12 @@ const config = {
   useSystemColorMode: false,
 };
 
-export const dark = extendTheme({
+export const light = extendTheme({
   config,
   breakpoints: breakpoints,
   fonts: {
     heading: 'Open Sans',
-    body: 'Noto Sans, sans-serif',
+    body: 'Rubik, sans-serif',
   },
   colors: {
     ash: {
@@ -33,5 +33,15 @@ export const dark = extendTheme({
       800: '#313132',
       900: '#181919',
     },
+    border: {
+      "light": '#f6f8fb',
+      "medium": '#dddee2',
+      "dark": '#c4c6c9',
+    },
+    text: {
+      "light": '#c4c6c9',
+      "medium": '#626364',
+      "dark": '#313132',
+    }
   },
 });
