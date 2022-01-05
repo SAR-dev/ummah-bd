@@ -3,7 +3,7 @@
 }
 
 .scrolling{
-    overflow: scroll;
+    overflow-y: scroll;
 }
 /* width */
 .scrolling::-webkit-scrollbar {

@@ -4,14 +4,6 @@ import {
   Flex,
   Icon,
   Select,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   Button,
   Avatar,
   Image,
@@ -25,26 +17,42 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   PopoverAnchor,
-  Input,
-  Link as ChakraLink,
   Text,
+  Input,
+  VStack,
+  StackDivider,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Link as ChakraLink,
 } from '@chakra-ui/react';
 import { IoLogoFoursquare } from 'react-icons/io5';
 import {
   RiCompassDiscoverLine,
+  RiCompassDiscoverFill,
   RiHomeWifiLine,
+  RiHomeWifiFill,
   RiStore2Line,
+  RiStore2Fill,
   RiNotification3Line,
+  RiNotification3Fill,
   RiArrowDropDownLine,
 } from 'react-icons/ri';
+import { FiChevronDown } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
 
 const NavLayout = ({ bg = 'ash.300' }) => {
   const [path, setPath] = useState('');
   const location = useLocation();
+  const [activeGroup, setActiveGroup] = useState();
 
   useEffect(() => {
-    setPath(location.pathname);
+    setPath(location.pathname.split('/')[1]);
   }, [location]);
 
   const data = {
@@ -52,17 +60,34 @@ const NavLayout = ({ bg = 'ash.300' }) => {
       avatar:
         'https://fictionhorizon.com/wp-content/uploads/2021/10/20-Best-Gemini-Anime-Characters-Ranked-By-Likability-00-1024x536.jpg',
       name: 'Sayed Rafi',
+      username: 'sayed-rafi',
     },
   };
 
   const menus = [
-    { name: 'Discover', path: '/discover', icon: RiCompassDiscoverLine },
-    { name: 'News Feed', path: '/feed', icon: RiHomeWifiLine },
-    { name: 'Marketplace', path: '/marketplace', icon: RiStore2Line },
+    {
+      name: 'Discover',
+      path: 'discover',
+      icon: RiCompassDiscoverLine,
+      icon2: RiCompassDiscoverFill,
+    },
+    {
+      name: 'News Feed',
+      path: 'feed',
+      icon: RiHomeWifiLine,
+      icon2: RiHomeWifiFill,
+    },
+    {
+      name: 'Marketplace',
+      path: 'marketplace',
+      icon: RiStore2Line,
+      icon2: RiStore2Fill,
+    },
     {
       name: 'Notification',
-      path: '/notification',
+      path: 'notification',
       icon: RiNotification3Line,
+      icon2: RiNotification3Fill,
     },
   ];
 
@@ -73,96 +98,127 @@ const NavLayout = ({ bg = 'ash.300' }) => {
         bg={'white'}
         borderBottomWidth={'1px'}
         borderBottomColor={'border.light'}
+        boxShadow={'sm'}
       >
         <Flex maxW={'1400px'} mx={'auto'} alignItems={'center'} px={5}>
           <Flex w={'250px'} flexShrink={0}>
-            <Icon as={IoLogoFoursquare} h={8} w={8} color="green.500" mr={5} />
-            {/* <Select
-              placeholder="Select option"
-              w="180px"
-              size="sm"
-              rounded="md"
-              color="text.medium"
-            >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select> */}
-            <Popover isLazy trigger="click">
+            <Icon as={IoLogoFoursquare} h={8} w={8} color="teal.500" mr={5} />
+            {/* <Popover>
               <PopoverTrigger>
-                <Flex
-                  borderWidth={'2px'}
-                  borderColor="border.medium"
-                  justifyContent="center"
-                  alignItems="center"
-                  cursor="pointer"
+                <Button
+                  size={'sm'}
+                  fontWeight={'medium'}
+                  justifyContent={'start'}
+                  bg={'ash.300'}
+                  color={'text.dark'}
+                  _hover={{ color: 'text.dark' }}
+                  _focus={{ color: 'text.dark' }}
+                  _active={{ color: 'text.dark' }}
+                  w="200px"
+                  flexShrink={0}
+                  className="flat"
                 >
-                  <Text
-                    w="180px"
-                    size="sm"
-                    rounded="md"
-                    color="text.medium"
-                    textAlign="center"
-                  >
-                    Subscription
-                  </Text>
-                  <Icon as={RiArrowDropDownLine} />
-                </Flex>
+                  Subscription
+                  <Icon as={RiArrowDropDownLine} ml={'auto'} />
+                </Button>
               </PopoverTrigger>
-              <PopoverContent w="200px">
+              <PopoverContent maxW="200px" className="flat" boxShadow={'sm'} rounded={'md'} overflow={'hidden'}>
                 <PopoverBody
                   h="400px"
                   className="scrolling"
                   _focus={{ outline: 'none' }}
+                  px={0}
                 >
-                  <Flex flexFlow={'column'}>
+                  <VStack
+                    divider={<StackDivider borderColor="border.light" />}
+                    spacing={0}
+                    align="stretch"
+                  >
                     {[...Array(20)].map((el, i) => (
                       <Flex
+                        as={Link}
+                        _hover={{ bg: 'ash.200' }}
+                        to=""
+                        alignItems="center"
+                        py={2}
+                        px={3}
                         key={i}
-                        alignItems={'center'}
-                        justifyContent={'space-around'}
-                        w="100%"
-                        py={1}
-                        my={1}
-                        cursor="pointer"
-                        boxShadow={'sm'}
-                        _hover={{ bg: 'ash.300' }}
                       >
-                        <Image
-                          src="https://wallpapercave.com/wp/wp6409639.jpg"
-                          h={8}
-                          w={8}
-                          fallbackSrc="https://via.placeholder.com/300/CCCCCC/CCCCCC"
-                          rounded={'full'}
-                          objectFit={'cover'}
+                        <Avatar
+                          size="sm"
+                          src={data.user.avatar}
+                          name={data.user.name}
                         />
-                        <Text color={'text.medium'}>Channel {i + 1}</Text>
+                        <SimpleGrid columns={1} ml={3}>
+                          <Text fontSize="sm" fontWeight="semibold">
+                            {data.user.name}
+                          </Text>
+                          <Text fontSize="xs">{`u/${data.user.username}`}</Text>
+                        </SimpleGrid>
                       </Flex>
                     ))}
-                  </Flex>
+                  </VStack>
                 </PopoverBody>
               </PopoverContent>
-            </Popover>
+            </Popover> */}
+            <Menu>
+              <MenuButton>
+                <Button
+                  w={"200px"}
+                  size={'sm'}
+                  fontWeight={'medium'}
+                  justifyContent={'start'}
+                  bg={'ash.300'}
+                  color={'text.dark'}
+                  _hover={{ color: 'text.dark' }}
+                  _focus={{ color: 'text.dark' }}
+                  _active={{ color: 'text.dark' }}
+                  flexShrink={0}
+                  className="flat"
+                >
+                  {activeGroup ? `u/${activeGroup}` : 'Select Community'}
+                  <Icon as={FiChevronDown} ml={"auto"} />
+                </Button>
+              </MenuButton>
+              <MenuList minW={"200px"} w={"200px"} maxH={"60vh"} className='scrolling'>
+                <MenuGroup title="Joined Communities">
+                  {[...Array(5)].map((el, i) => (
+                    <MenuItem onClick={() => setActiveGroup(data.user.username)} key={i}>
+                      <Flex as={Link} to="" alignItems="center" py={1}>
+                        <Avatar
+                          size="sm"
+                          src={data.user.avatar}
+                          name={data.user.name}
+                        />
+                        <SimpleGrid columns={1} ml={3}>
+                          <Text fontSize="sm" fontWeight="semibold">
+                            {data.user.name}
+                          </Text>
+                          <Text fontSize="xs">{`c/${data.user.username}`}</Text>
+                        </SimpleGrid>
+                      </Flex>
+                    </MenuItem>
+                  ))}
+                </MenuGroup>
+              </MenuList>
+            </Menu>
           </Flex>
           <Flex w={'600px'} flexShrink={0} mx={'auto'}>
             <SimpleGrid columns={menus.length} spacing={3} w="100%">
               {menus.map((el, i) => (
                 <ChakraLink
                   as={Link}
-                  to={el.path}
+                  to={`/${el.path}`}
+                  py={2}
                   bg={'transparent'}
                   borderBottomWidth={'3px'}
                   borderBottomColor={
-                    el.path === path ? 'green.500' : 'transparent'
+                    el.path === path ? 'teal.500' : 'transparent'
                   }
-                  color={el.path === path ? 'text.dark' : 'text.light'}
+                  color={el.path === path ? 'teal.600' : 'text.medium'}
                   fontWeight={'medium'}
                   className="flat"
-                  _hover={
-                    el.path === path
-                      ? ''
-                      : { bg: 'ash.50', color: 'text.medium' }
-                  }
+                  _hover={el.path === path ? '' : { color: 'text.dark' }}
                   key={i}
                 >
                   <Flex
@@ -172,8 +228,13 @@ const NavLayout = ({ bg = 'ash.300' }) => {
                     w="100%"
                     rounded="md"
                   >
-                    <Icon as={el.icon} h={5} w={5} mr={2} />
-                    <Text>{el.name}</Text>
+                    <Icon
+                      as={el.path === path ? el.icon2 : el.icon}
+                      h={5}
+                      w={5}
+                      mr={2}
+                    />
+                    <Text fontSize={'sm'}>{el.name}</Text>
                   </Flex>
                 </ChakraLink>
               ))}
@@ -185,8 +246,13 @@ const NavLayout = ({ bg = 'ash.300' }) => {
             justifyContent={'end'}
             alignItems={'center'}
           >
-            <Flex alignItems={'center'} mr={2} bg="ash.400"
-              rounded={"full"} h="100%" px={2}
+            <Flex
+              alignItems={'center'}
+              mr={5}
+              bg="ash.400"
+              rounded={'full'}
+              h="100%"
+              px={2}
             >
               <Icon as={RiStore2Line} h={5} w={5} mr={1} />
               <Text fontWeight={'semibold'}>100</Text>

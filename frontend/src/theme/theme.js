@@ -18,7 +18,7 @@ export const light = extendTheme({
   breakpoints: breakpoints,
   fonts: {
     heading: 'Open Sans',
-    body: 'Rubik, sans-serif',
+    body: 'Inter, sans-serif',
   },
   colors: {
     ash: {
@@ -39,9 +39,9 @@ export const light = extendTheme({
       "dark": '#c4c6c9',
     },
     text: {
-      "light": '#c4c6c9',
-      "medium": '#626364',
-      "dark": '#313132',
+      "light": '#e0e0e0',
+      "medium": '#9e9e9e',
+      "dark": '#424242',
     }
   },
 });
