@@ -1,3 +1,23 @@
 .flat {
     box-shadow: none !important;
 }
+
+.scrolling{
+    overflow: scroll;
+}
+/* width */
+.scrolling::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+/* Track */
+.scrolling::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+.scrolling::-webkit-scrollbar-thumb {
+  background:#dddee2;
+  border-radius: 10px;
+}
