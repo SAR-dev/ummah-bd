@@ -3,35 +3,22 @@ import {
   Box,
   Flex,
   Icon,
-  Select,
   Button,
   Avatar,
   Image,
   SimpleGrid,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
   Text,
-  Input,
-  VStack,
-  StackDivider,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
   MenuGroup,
-  MenuOptionGroup,
   MenuDivider,
+  Divider,
   Link as ChakraLink,
 } from '@chakra-ui/react';
 import { IoLogoFoursquare } from 'react-icons/io5';
+import { AiFillThunderbolt } from 'react-icons/ai';
 import {
   RiCompassDiscoverLine,
   RiCompassDiscoverFill,
@@ -51,6 +38,8 @@ const NavLayout = ({ bg = 'ash.300' }) => {
   const location = useLocation();
   const [activeGroup, setActiveGroup] = useState();
 
+  const a = 120;
+  const b = 300;
   useEffect(() => {
     setPath(location.pathname.split('/')[1]);
   }, [location]);
@@ -103,68 +92,10 @@ const NavLayout = ({ bg = 'ash.300' }) => {
         <Flex maxW={'1400px'} mx={'auto'} alignItems={'center'} px={5}>
           <Flex w={'250px'} flexShrink={0}>
             <Icon as={IoLogoFoursquare} h={8} w={8} color="teal.500" mr={5} />
-            {/* <Popover>
-              <PopoverTrigger>
-                <Button
-                  size={'sm'}
-                  fontWeight={'medium'}
-                  justifyContent={'start'}
-                  bg={'ash.300'}
-                  color={'text.dark'}
-                  _hover={{ color: 'text.dark' }}
-                  _focus={{ color: 'text.dark' }}
-                  _active={{ color: 'text.dark' }}
-                  w="200px"
-                  flexShrink={0}
-                  className="flat"
-                >
-                  Subscription
-                  <Icon as={RiArrowDropDownLine} ml={'auto'} />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent maxW="200px" className="flat" boxShadow={'sm'} rounded={'md'} overflow={'hidden'}>
-                <PopoverBody
-                  h="400px"
-                  className="scrolling"
-                  _focus={{ outline: 'none' }}
-                  px={0}
-                >
-                  <VStack
-                    divider={<StackDivider borderColor="border.light" />}
-                    spacing={0}
-                    align="stretch"
-                  >
-                    {[...Array(20)].map((el, i) => (
-                      <Flex
-                        as={Link}
-                        _hover={{ bg: 'ash.200' }}
-                        to=""
-                        alignItems="center"
-                        py={2}
-                        px={3}
-                        key={i}
-                      >
-                        <Avatar
-                          size="sm"
-                          src={data.user.avatar}
-                          name={data.user.name}
-                        />
-                        <SimpleGrid columns={1} ml={3}>
-                          <Text fontSize="sm" fontWeight="semibold">
-                            {data.user.name}
-                          </Text>
-                          <Text fontSize="xs">{`u/${data.user.username}`}</Text>
-                        </SimpleGrid>
-                      </Flex>
-                    ))}
-                  </VStack>
-                </PopoverBody>
-              </PopoverContent>
-            </Popover> */}
             <Menu>
               <MenuButton>
                 <Button
-                  w={"200px"}
+                  w={'200px'}
                   size={'sm'}
                   fontWeight={'medium'}
                   justifyContent={'start'}
@@ -177,13 +108,21 @@ const NavLayout = ({ bg = 'ash.300' }) => {
                   className="flat"
                 >
                   {activeGroup ? `u/${activeGroup}` : 'Select Community'}
-                  <Icon as={FiChevronDown} ml={"auto"} />
+                  <Icon as={FiChevronDown} ml={'auto'} />
                 </Button>
               </MenuButton>
-              <MenuList minW={"200px"} w={"200px"} maxH={"60vh"} className='scrolling'>
+              <MenuList
+                minW={'200px'}
+                w={'200px'}
+                maxH={'60vh'}
+                className="scrolling"
+              >
                 <MenuGroup title="Joined Communities">
                   {[...Array(5)].map((el, i) => (
-                    <MenuItem onClick={() => setActiveGroup(data.user.username)} key={i}>
+                    <MenuItem
+                      onClick={() => setActiveGroup(data.user.username)}
+                      key={i}
+                    >
                       <Flex as={Link} to="" alignItems="center" py={1}>
                         <Avatar
                           size="sm"
@@ -246,7 +185,7 @@ const NavLayout = ({ bg = 'ash.300' }) => {
             justifyContent={'end'}
             alignItems={'center'}
           >
-            <Flex
+            {/* <Flex
               alignItems={'center'}
               mr={5}
               bg="ash.400"
@@ -256,7 +195,82 @@ const NavLayout = ({ bg = 'ash.300' }) => {
             >
               <Icon as={RiStore2Line} h={5} w={5} mr={1} />
               <Text fontWeight={'semibold'}>100</Text>
+            </Flex> */}
+
+            {/* <Flex flexFlow={"column"} alignItems={"center"} h={8}>
+              <Flex
+                w="100px"
+                h="20px"
+                rounded={'full'}
+                borderWidth={'1px'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                position="relative"
+              >
+                <Flex
+                  w={`${(a /b) * 100}%`}
+                  roundedLeft={'full'}
+                  h="20px"
+                  bg="teal.500"
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                ></Flex>
+                <Icon
+                  as={AiFillThunderbolt}
+                  position={'absolute'}
+                  left={`${(a / b) * 100 -12}%`}
+                  h={8}
+                  w={8}
+                  color={'yellow.300'}
+                />
+                <Flex
+                  w={`${((b - a) / b) * 100}%`}
+                  roundedRight={'full'}
+                  h="20px"
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                ></Flex>
+              </Flex>
+              <Text fontSize={"12px"}>{a}/{b}</Text>
+            </Flex> */}
+
+            <Flex alignItems={'center'} h={8} mr={5}>
+              <Icon as={AiFillThunderbolt} h={10} w={10} color={'yellow.300'} />
+
+              <Flex flexFlow={'column'} w="90%">
+                <Flex alignItems={'center'}>
+                  <Text fontSize={'12px'}>
+                    {a}/{b}
+                  </Text>
+                  <Divider borderColor="border.dark" mx={1} />
+                </Flex>
+                <Flex
+                  w="100px"
+                  h="20px"
+                  rounded={'full'}
+                  borderWidth={'1px'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                >
+                  <Flex
+                    w={`${(a / b) * 100}%`}
+                    roundedLeft={'full'}
+                    h="20px"
+                    bg="teal.500"
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                  ></Flex>
+                  <Flex
+                    w={`${((b - a) / b) * 100}%`}
+                    roundedRight={'full'}
+                    h="20px"
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                  ></Flex>
+                </Flex>
+              </Flex>
             </Flex>
+
             <Menu>
               <MenuButton role="group">
                 <Box
