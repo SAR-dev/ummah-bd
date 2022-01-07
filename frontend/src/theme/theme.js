@@ -39,7 +39,7 @@ export const light = extendTheme({
       "dark": '#c4c6c9',
     },
     text: {
-      "light": '#e0e0e0',
+      "light": '#c4c6c9',
       "medium": '#9e9e9e',
       "dark": '#424242',
     }

@@ -32,14 +32,13 @@ import {
 } from 'react-icons/ri';
 import { FiChevronDown } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
+import NavbarUserHP from '../components/NavbarUserHP';
 
 const NavLayout = ({ bg = 'ash.300' }) => {
   const [path, setPath] = useState('');
   const location = useLocation();
   const [activeGroup, setActiveGroup] = useState();
 
-  const a = 120;
-  const b = 300;
   useEffect(() => {
     setPath(location.pathname.split('/')[1]);
   }, [location]);
@@ -93,23 +92,24 @@ const NavLayout = ({ bg = 'ash.300' }) => {
           <Flex w={'250px'} flexShrink={0}>
             <Icon as={IoLogoFoursquare} h={8} w={8} color="teal.500" mr={5} />
             <Menu>
-              <MenuButton>
-                <Button
-                  w={'200px'}
-                  size={'sm'}
-                  fontWeight={'medium'}
-                  justifyContent={'start'}
-                  bg={'ash.300'}
-                  color={'text.dark'}
-                  _hover={{ color: 'text.dark' }}
-                  _focus={{ color: 'text.dark' }}
-                  _active={{ color: 'text.dark' }}
-                  flexShrink={0}
-                  className="flat"
-                >
-                  {activeGroup ? `u/${activeGroup}` : 'Select Community'}
-                  <Icon as={FiChevronDown} ml={'auto'} />
-                </Button>
+              <MenuButton
+                as={Button}
+                w={'200px'}
+                size={'sm'}
+                fontWeight={'medium'}
+                textAlign={'start'}
+                variant={'outline'}
+                bg={'ash.300'}
+                borderColor={'border.medium'}
+                color={'text.medium'}
+                _hover={{ bg: 'ash.400', color: 'text.dark' }}
+                _focus={{ bg: 'ash.400', color: 'text.dark' }}
+                _active={{ bg: 'ash.400', color: 'text.dark' }}
+                flexShrink={0}
+                rightIcon={<Icon as={FiChevronDown} />}
+                className="flat"
+              >
+                {activeGroup ? `u/${activeGroup}` : 'Select Community'}
               </MenuButton>
               <MenuList
                 minW={'200px'}
@@ -185,98 +185,13 @@ const NavLayout = ({ bg = 'ash.300' }) => {
             justifyContent={'end'}
             alignItems={'center'}
           >
-            {/* <Flex
-              alignItems={'center'}
-              mr={5}
-              bg="ash.400"
-              rounded={'full'}
-              h="100%"
-              px={2}
-            >
-              <Icon as={RiStore2Line} h={5} w={5} mr={1} />
-              <Text fontWeight={'semibold'}>100</Text>
-            </Flex> */}
-
-            {/* <Flex flexFlow={"column"} alignItems={"center"} h={8}>
-              <Flex
-                w="100px"
-                h="20px"
-                rounded={'full'}
-                borderWidth={'1px'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                position="relative"
-              >
-                <Flex
-                  w={`${(a /b) * 100}%`}
-                  roundedLeft={'full'}
-                  h="20px"
-                  bg="teal.500"
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                ></Flex>
-                <Icon
-                  as={AiFillThunderbolt}
-                  position={'absolute'}
-                  left={`${(a / b) * 100 -12}%`}
-                  h={8}
-                  w={8}
-                  color={'yellow.300'}
-                />
-                <Flex
-                  w={`${((b - a) / b) * 100}%`}
-                  roundedRight={'full'}
-                  h="20px"
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                ></Flex>
-              </Flex>
-              <Text fontSize={"12px"}>{a}/{b}</Text>
-            </Flex> */}
-
-            <Flex alignItems={'center'} h={8} mr={5}>
-              <Icon as={AiFillThunderbolt} h={10} w={10} color={'yellow.300'} />
-
-              <Flex flexFlow={'column'} w="90%">
-                <Flex alignItems={'center'}>
-                  <Text fontSize={'12px'}>
-                    {a}/{b}
-                  </Text>
-                  <Divider borderColor="border.dark" mx={1} />
-                </Flex>
-                <Flex
-                  w="100px"
-                  h="20px"
-                  rounded={'full'}
-                  borderWidth={'1px'}
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                >
-                  <Flex
-                    w={`${(a / b) * 100}%`}
-                    roundedLeft={'full'}
-                    h="20px"
-                    bg="teal.500"
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                  ></Flex>
-                  <Flex
-                    w={`${((b - a) / b) * 100}%`}
-                    roundedRight={'full'}
-                    h="20px"
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                  ></Flex>
-                </Flex>
-              </Flex>
-            </Flex>
-
+            <NavbarUserHP />
             <Menu>
               <MenuButton role="group">
                 <Box
                   p="3px"
                   rounded="full"
-                  bg="transparent"
+                  bg={'ash.200'}
                   _groupHover={{ bg: 'blue.500' }}
                 >
                   <Image

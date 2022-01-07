@@ -8,6 +8,7 @@ import NewsFeed from './pages/NewsFeed';
 import NotFound from './pages/NotFound';
 import Notification from './pages/Notification';
 import Signup from './pages/Signup';
+import SignupAlt from './pages/SignupAlt';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/s" element={<SignupAlt />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/feed" element={<NewsFeed />} />
         <Route path="/marketplace" element={<Marketplace />} />
