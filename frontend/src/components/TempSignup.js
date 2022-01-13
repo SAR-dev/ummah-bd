@@ -124,7 +124,7 @@ const TempSignup = () => {
             pointerEvents="none"
             children={<Icon as={FaUserNinja} w={6} h={6} color="text.medium" />}
           />
-          <Input
+          <Input 
             type="text"
             id="username"
             name="username"
