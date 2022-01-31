@@ -42,6 +42,9 @@ export const light = extendTheme({
       "light": '#c4c6c9',
       "medium": '#9e9e9e',
       "dark": '#424242',
+    },
+    paceholder: {
+      'base': '#c4c6c9'
     }
   },
 });
