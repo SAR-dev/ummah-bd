@@ -11,15 +11,25 @@ import {
 import { MdChecklist, MdEmojiPeople, MdOutlineSecurity } from 'react-icons/md';
 import { HiOutlineBan } from 'react-icons/hi';
 import SignUpForm from './SignUpForm';
+import Lottie from 'react-lottie';
+import * as animationData from '../resources/lottie/welcome-animation.json';
 
 function Signup() {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   const WelcomeText = () => (
     <Flex alignItems={'center'}>
       <Box>
-        <Text fontSize={'4xl'} fontWeight={'bold'} mb={5}>
-          Create an Account
-        </Text>
-        <List spacing={3}>
+        <Box className='svg-left'>
+          <Lottie options={defaultOptions} width={180} />
+        </Box>
+        <List spacing={4}>
           <ListItem d="flex" alignItems={'center'}>
             <ListIcon as={MdEmojiPeople} h={6} w={6} color="purple.500" />A
             place to discuss open mindedly for BD people
@@ -46,11 +56,19 @@ function Signup() {
         columns={2}
         spacing={10}
         textAlign={'left'}
-        maxW={'900px'}
+        maxW={'800px'}
         w="100%"
       >
         <WelcomeText />
-        <SignUpForm />
+        <Box>
+          <Text fontSize={'2xl'} fontWeight={'bold'}>
+            Create an Account
+          </Text>
+          <Text fontSize={"sm"} color="text.medium" mb={5}>
+            We have been waiting for you !!
+          </Text>
+          <SignUpForm />
+        </Box>
       </SimpleGrid>
     </Flex>
   );

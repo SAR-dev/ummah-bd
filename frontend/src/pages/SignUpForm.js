@@ -14,14 +14,15 @@ import {
   HStack,
   IconButton,
   SimpleGrid,
+  Checkbox,
+  Tooltip,
 } from '@chakra-ui/react';
 
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { MdEmail, MdPhone } from 'react-icons/md';
+import { MdEmail } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import 'yup-phone';
 
 const SignUpForm = () => {
   const [loading, setLoading] = useState(false);
@@ -35,9 +36,9 @@ const SignUpForm = () => {
       .string()
       .email("Hey! That's not a valid email address.")
       .required('You need to provide email address.'),
-    phone: yup.string().phone().required('A phone number is required'),
-    password: yup.string().required('Hey! You forgot to provide password.'),
-    confirm_password: yup.string().required('Plese retype your password'),
+    password: yup.string().required('Password is required.'),
+    confirm_password: yup.string().required('Retype your password'),
+    agreed: yup.bool().oneOf([true], 'Accept terms & conditions is required'),
   });
 
   const {
@@ -51,23 +52,24 @@ const SignUpForm = () => {
   });
 
   const onSubmit = values => {
+    console.log(values);
     setLoading(true);
-    if (values.password !== values.confirm_password){
-      setError("confirm_password", { type: "focus", message: "Password doesn't match!" }, { shouldFocus: true });
+    if (values.password !== values.confirm_password) {
+      setError(
+        'confirm_password',
+        { type: 'focus', message: "Password doesn't match!" },
+        { shouldFocus: true }
+      );
     }
     setLoading(false);
   };
-
-  function fixError(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <SimpleGrid columns={1} spacing={5}>
         <HStack>
           <FormControl isInvalid={errors.first_name}>
-            <InputGroup>
+            <InputGroup size="sm">
               <Input
                 type="text"
                 id="first_name"
@@ -92,7 +94,7 @@ const SignUpForm = () => {
           </FormControl>
 
           <FormControl isInvalid={errors.last_name}>
-            <InputGroup>
+            <InputGroup size="sm">
               <Input
                 type="text"
                 id="last_name"
@@ -118,7 +120,7 @@ const SignUpForm = () => {
         </HStack>
 
         <FormControl isInvalid={errors.email}>
-          <InputGroup>
+          <InputGroup size="sm">
             <InputLeftElement>
               <Icon as={MdEmail} h={5} w={5} color="ash.500" />
             </InputLeftElement>
@@ -145,37 +147,9 @@ const SignUpForm = () => {
           </Text>
         </FormControl>
 
-        <FormControl isInvalid={errors.phone}>
-          <InputGroup>
-            <InputLeftElement>
-              <Icon as={MdPhone} h={5} w={5} color="ash.500" />
-            </InputLeftElement>
-            <Input
-              type="text"
-              id="phone"
-              name="phone"
-              placeholder="Phone No."
-              variant="outline"
-              colorScheme={'ash'}
-              isDisabled={loading}
-              autoComplete="new-password"
-              {...register('phone')}
-            />
-          </InputGroup>
-          <Text
-            fontSize={'xs'}
-            color={errors.phone ? 'red.500' : 'text.medium'}
-            mt={1}
-          >
-            {errors.phone
-              ? fixError(errors.phone.message)
-              : 'Provide a valid phone number'}
-          </Text>
-        </FormControl>
-
         <HStack>
           <FormControl isInvalid={errors.password}>
-            <InputGroup>
+            <InputGroup size="sm">
               <Input
                 type={showPass ? 'text' : 'password'}
                 id="password"
@@ -216,7 +190,7 @@ const SignUpForm = () => {
           </FormControl>
 
           <FormControl isInvalid={errors.confirm_password}>
-            <InputGroup>
+            <InputGroup size="sm">
               <Input
                 type={showConfirmPass ? 'text' : 'password'}
                 id="confirm_password"
@@ -259,15 +233,47 @@ const SignUpForm = () => {
           </FormControl>
         </HStack>
 
-        <Button
-          w="100%"
-          type="submit"
-          colorScheme={'purple'}
-          _hover={{ bg: 'purple.600', transform: 'translateY(5px)' }}
-          isLoading={loading}
-        >
-          Submit
-        </Button>
+        <Box>
+          <FormControl isInvalid={errors.agreed}>
+            <Checkbox
+              defaultIsChecked
+              size="sm"
+              name="agreed"
+              {...register('agreed')}
+              mb={2}
+            >
+              {errors.agreed ? (
+                <Tooltip
+                  hasArrow
+                  fontSize="xs"
+                  label={errors.agreed.message}
+                  isOpen
+                  placement="right"
+                  bg="ash.700"
+                  arrowSize={8}
+                >
+                  <Text color="text.medium" fontSize="xs">
+                    I accept the licence agreement
+                  </Text>
+                </Tooltip>
+              ) : (
+                <Text color="text.medium" fontSize="xs">
+                  I accept the licence agreement
+                </Text>
+              )}
+            </Checkbox>
+          </FormControl>
+          <Button
+            size="sm"
+            w="100%"
+            type="submit"
+            colorScheme={'purple'}
+            _hover={{ bg: 'purple.600', transform: 'translateY(5px)' }}
+            isLoading={loading}
+          >
+            Submit
+          </Button>
+        </Box>
       </SimpleGrid>
     </form>
   );

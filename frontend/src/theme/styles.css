@@ -21,3 +21,7 @@
   background:#dddee2;
   border-radius: 10px;
 }
+
+.svg-left div[role=button] {
+  margin: 0px !important;
+}
