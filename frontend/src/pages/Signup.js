@@ -13,6 +13,7 @@ import { HiOutlineBan } from 'react-icons/hi';
 import SignUpForm from './SignUpForm';
 import Lottie from 'react-lottie';
 import * as animationData from '../resources/lottie/welcome-animation.json';
+import LoginBackground from '../resources/loginBG.jpg';
 
 function Signup() {
   const defaultOptions = {
@@ -27,9 +28,9 @@ function Signup() {
     <Flex alignItems={'center'}>
       <Box>
         <Box className='svg-left'>
-          <Lottie options={defaultOptions} width={180} />
+          <Lottie options={defaultOptions} width={200} />
         </Box>
-        <List spacing={4}>
+        <List spacing={3}>
           <ListItem d="flex" alignItems={'center'}>
             <ListIcon as={MdEmojiPeople} h={6} w={6} color="purple.500" />A
             place to discuss open mindedly for BD people
@@ -51,8 +52,9 @@ function Signup() {
     </Flex>
   );
   return (
-    <Flex h="100vh" w="100%" alignItems={'center'} justifyContent={'center'}>
+    <Flex h="100vh" w="100%" bgImage={LoginBackground} alignItems={'center'} justifyContent={'center'}>
       <SimpleGrid
+        bg="ash.50" p={10} rounded={'md'}
         columns={2}
         spacing={10}
         textAlign={'left'}
