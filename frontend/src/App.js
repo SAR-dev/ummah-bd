@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Discover from './pages/Discover';
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Signin from './pages/Signin';
 import Marketplace from './pages/Marketplace';
 import NewsFeed from './pages/NewsFeed';
 import NotFound from './pages/NotFound';
@@ -15,7 +15,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<Signin />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/feed" element={<NewsFeed />} />
         <Route path="/marketplace" element={<Marketplace />} />

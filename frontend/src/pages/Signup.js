@@ -13,7 +13,7 @@ import { HiOutlineBan } from 'react-icons/hi';
 import SignUpForm from './SignUpForm';
 import Lottie from 'react-lottie';
 import * as animationData from '../resources/lottie/welcome-animation.json';
-import LoginBackground from '../resources/loginBG.jpg';
+import WelcomeSVGBackground from '../resources/signup.svg';
 
 function Signup() {
   const defaultOptions = {
@@ -52,9 +52,11 @@ function Signup() {
     </Flex>
   );
   return (
-    <Flex h="100vh" w="100%" bgImage={LoginBackground} alignItems={'center'} justifyContent={'center'}>
+    <Flex h="100vh" w="100%" bgImage={WelcomeSVGBackground} bgSize={"cover"} alignItems={'center'} justifyContent={'center'}>
       <SimpleGrid
-        bg="ash.50" p={10} rounded={'md'}
+        bg="ash.50" 
+        p={10} 
+        rounded={'md'}
         columns={2}
         spacing={10}
         textAlign={'left'}

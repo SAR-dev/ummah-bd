@@ -17,15 +17,15 @@ import {
   Checkbox,
   Tooltip,
 } from '@chakra-ui/react';
-
+import {Link} from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import LoginBackground from '../resources/loginBG.jpg';
+import WelcomeSVGBackground from '../resources/signup.svg';
 import { MdEmail } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-const Login = () => {
+const Signin = () => {
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
@@ -61,17 +61,18 @@ const Login = () => {
       w="100vw"
       justifyContent={'center'}
       alignItems={'center'}
-      bgImage={LoginBackground}
+      bgImage={WelcomeSVGBackground}
+      bgSize={'cover'}
     >
-      <Box bg="ash.50" p={10} rounded={'md'}>
+      <Box bg="ash.50" p={10} rounded={'md'} maxW={'400px'} w={"100%"}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <SimpleGrid columns={1} spacing={5}>
             <Box>
               <Text fontSize={'2xl'} fontWeight={'bold'}>
-                Login
+                Sign In
               </Text>
               <Text fontSize={'sm'} color="text.medium" mb={5}>
-                Welcome back !!
+                Welcome back! We have missed you.
               </Text>
             </Box>
             <FormControl isInvalid={errors.email}>
@@ -98,7 +99,7 @@ const Login = () => {
               >
                 {errors.email
                   ? errors.email.message
-                  : 'Enter a valid email address'}
+                  : 'Enter your email address'}
               </Text>
             </FormControl>
 
@@ -139,7 +140,7 @@ const Login = () => {
                 color={errors.password ? 'red.500' : 'text.medium'}
                 mt={1}
               >
-                {errors.password ? errors.password.message : 'Set a Password'}
+                {errors.password ? errors.password.message : 'Provide your Password'}
               </Text>
             </FormControl>
 
@@ -155,8 +156,8 @@ const Login = () => {
                   Remember me
                 </Text>
               </Checkbox>
-              <Text color="blue.700" fontWeight={'semibold'} fontSize="sm">
-                Forget Password ?
+              <Text color="blue.700" fontSize="sm" as={Link} to="/">
+                Forgot Password ?
               </Text>
             </Flex>
 
@@ -173,7 +174,7 @@ const Login = () => {
 
             <Flex>
               <Text fontSize={'sm'}>Not registered yet ?</Text>
-              <Text color="blue.700" fontWeight={'semibold'} fontSize="sm">
+              <Text color="blue.700" fontSize="sm" ml={1} as={Link} to="/">
                 Create an Account
               </Text>
             </Flex>
@@ -183,4 +184,4 @@ const Login = () => {
     </Flex>
   );
 };
-export default Login;
+export default Signin;
