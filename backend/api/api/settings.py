@@ -223,6 +223,6 @@ TRENCH_AUTH = {
 }
 
 AUTHENTICATION_BACKENDS = ['account.auth.EmailOrUsernameModelBackend']
-FRONTEND_URL = 'https://superfansbd.web.app'
+FRONTEND_URL = 'https://localhost:3000'
 # ONLY FOR DEVELOPMENT
 ALLOWED_HOSTS = ['*']

@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from 'react';
 import {
   Box,
-  Text,
   Button,
-  Flex,
-  Image,
+  Checkbox,
   FormControl,
+  HStack,
+  Icon,
+  IconButton,
+  Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  Input,
-  Icon,
-  HStack,
-  IconButton,
   SimpleGrid,
-  Checkbox,
+  Text,
+  useToast,
   Tooltip,
 } from '@chakra-ui/react';
-
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { MdEmail } from 'react-icons/md';
-import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 
-const SignUpForm = () => {
+import { signup, capitalize } from '../helpers';
+
+const SignUpForm = ({ setCompleted }) => {
+  const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -37,7 +38,7 @@ const SignUpForm = () => {
       .email("Hey! That's not a valid email address.")
       .required('You need to provide email address.'),
     password: yup.string().required('Password is required.'),
-    confirm_password: yup.string().required('Retype your password'),
+    re_password: yup.string().required('Retype your password'),
     agreed: yup.bool().oneOf([true], 'Accept terms & conditions is required'),
   });
 
@@ -52,14 +53,50 @@ const SignUpForm = () => {
   });
 
   const onSubmit = values => {
-    console.log(values);
     setLoading(true);
-    if (values.password !== values.confirm_password) {
+    if (values.password !== values.re_password) {
       setError(
-        'confirm_password',
+        're_password',
         { type: 'focus', message: "Password doesn't match!" },
         { shouldFocus: true }
       );
+    } else {
+      const userData = {
+        email: values.email,
+        username: values.email.split('@')[0],
+        first_name: values.first_name,
+        last_name: values.last_name,
+        password: values.password,
+        re_password: values.re_password,
+      };
+      signup(userData).then(data => {
+        if (data.error) {
+          Object.entries(data.error).forEach(([key, value]) => {
+            if (
+              [
+                'email',
+                'first_name',
+                'last_name',
+                'password',
+                're_password',
+              ].includes(key)
+            ) {
+              setError(key, {
+                type: 'manual',
+                message: capitalize(value[0]),
+              });
+            } else {
+              toast({
+                status: 'error',
+                title: capitalize(key),
+                description: value,
+              });
+            }
+          });
+        } else {
+          setCompleted(true);
+        }
+      });
     }
     setLoading(false);
   };
@@ -189,18 +226,18 @@ const SignUpForm = () => {
             </Text>
           </FormControl>
 
-          <FormControl isInvalid={errors.confirm_password}>
+          <FormControl isInvalid={errors.re_password}>
             <InputGroup size="sm">
               <Input
                 type={showConfirmPass ? 'text' : 'password'}
-                id="confirm_password"
-                name="confirm_password"
+                id="re_password"
+                name="re_password"
                 placeholder="&#8727;&#8727;&#8727;&#8727;&#8727;"
                 variant="outline"
                 colorScheme={'ash'}
                 isDisabled={loading}
                 autoComplete="new-password"
-                {...register('confirm_password')}
+                {...register('re_password')}
               />
               <InputRightElement>
                 <IconButton
@@ -223,11 +260,11 @@ const SignUpForm = () => {
             </InputGroup>
             <Text
               fontSize={'xs'}
-              color={errors.confirm_password ? 'red.500' : 'text.medium'}
+              color={errors.re_password ? 'red.500' : 'text.medium'}
               mt={1}
             >
-              {errors.confirm_password
-                ? errors.confirm_password.message
+              {errors.re_password
+                ? errors.re_password.message
                 : 'Retype your Password'}
             </Text>
           </FormControl>

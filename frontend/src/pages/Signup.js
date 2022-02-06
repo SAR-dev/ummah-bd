@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Flex,
   SimpleGrid,
   Text,
   List,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
   ListItem,
   ListIcon,
 } from '@chakra-ui/react';
@@ -16,6 +20,8 @@ import * as animationData from '../resources/lottie/welcome-animation.json';
 import WelcomeSVGBackground from '../resources/signup.svg';
 
 function Signup() {
+  const [completed, setCompleted] = useState(false);
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -27,7 +33,7 @@ function Signup() {
   const WelcomeText = () => (
     <Flex alignItems={'center'}>
       <Box>
-        <Box className='svg-left'>
+        <Box className="svg-left">
           <Lottie options={defaultOptions} width={200} />
         </Box>
         <List spacing={3}>
@@ -52,28 +58,58 @@ function Signup() {
     </Flex>
   );
   return (
-    <Flex h="100vh" w="100%" bgImage={WelcomeSVGBackground} bgSize={"cover"} alignItems={'center'} justifyContent={'center'}>
-      <SimpleGrid
-        bg="ash.50" 
-        p={10} 
-        rounded={'md'}
-        columns={2}
-        spacing={10}
-        textAlign={'left'}
-        maxW={'800px'}
-        w="100%"
-      >
-        <WelcomeText />
-        <Box>
-          <Text fontSize={'2xl'} fontWeight={'bold'}>
-            Create an Account
-          </Text>
-          <Text fontSize={"sm"} color="text.medium" mb={5}>
-            We have been waiting for you !!
-          </Text>
-          <SignUpForm />
-        </Box>
-      </SimpleGrid>
+    <Flex
+      h="100vh"
+      w="100%"
+      bgImage={WelcomeSVGBackground}
+      bgSize={'cover'}
+      alignItems={'center'}
+      justifyContent={'center'}
+    >
+      {!completed ? (
+        <SimpleGrid
+          bg="ash.50"
+          p={10}
+          rounded={'md'}
+          columns={2}
+          spacing={10}
+          textAlign={'left'}
+          maxW={'800px'}
+          w="100%"
+        >
+          <WelcomeText />
+          <Box>
+            <Text fontSize={'2xl'} fontWeight={'bold'}>
+              Create an Account
+            </Text>
+            <Text fontSize={'sm'} color="text.medium" mb={5}>
+              We have been waiting for you !!
+            </Text>
+            <SignUpForm setCompleted={setCompleted} />
+          </Box>
+        </SimpleGrid>
+      ) : (
+        <Alert
+          status="success"
+          variant="subtle"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          height="200px"
+          rounded="md"
+          mx="auto"
+        >
+          <AlertIcon boxSize="40px" mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize="lg">
+            Verification Email Sent!
+          </AlertTitle>
+          <AlertDescription maxWidth="sm">
+            Thanks for regestering. Plese check your email and follow the
+            instructions provided.
+          </AlertDescription>
+        </Alert>
+      )}
     </Flex>
   );
 }
