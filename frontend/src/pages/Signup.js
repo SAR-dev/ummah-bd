@@ -97,6 +97,7 @@ function Signup() {
           justifyContent="center"
           textAlign="center"
           height="200px"
+          maxW="600px"
           rounded="md"
           mx="auto"
         >

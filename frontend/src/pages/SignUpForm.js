@@ -60,10 +60,10 @@ const SignUpForm = ({ setCompleted }) => {
         { type: 'focus', message: "Password doesn't match!" },
         { shouldFocus: true }
       );
+      setLoading(false);
     } else {
       const userData = {
         email: values.email,
-        username: values.email.split('@')[0],
         first_name: values.first_name,
         last_name: values.last_name,
         password: values.password,
@@ -93,12 +93,12 @@ const SignUpForm = ({ setCompleted }) => {
               });
             }
           });
+          setLoading(false);
         } else {
           setCompleted(true);
         }
       });
     }
-    setLoading(false);
   };
 
   return (
