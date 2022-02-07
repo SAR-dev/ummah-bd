@@ -8,8 +8,7 @@ from imagekit.processors import ResizeToFit
 from django.utils.deconstruct import deconstructible
 import os
 from uuid import uuid4
-from django.utils.text import slugify
-
+from utils.awesome_username_generator.generator import generate_username
 
 @deconstructible
 class RenameAndRelocateImage(object):
@@ -143,10 +142,9 @@ def save(sender, instance, *args, **kwargs):
             pass
     # Set Username
     if not instance.username:
-        username = slugify(instance.first_name + " " + instance.last_name)
+        username = generate_username(1)
         counter = 1
         while Account.objects.filter(username=username):
-            username = slugify(instance.first_name + " " +
-                               instance.last_name + " " + str(counter))
+            username = '{}-{}'.format(username, counter)
             counter += 1
         instance.username = username
