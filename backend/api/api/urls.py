@@ -28,4 +28,5 @@ urlpatterns = [
     # path('api/auth/', include('djoser.urls.authtoken')),
     path('api/auth/', include('trench.urls.djoser')),  # for Token Based Authorization
     path('api/account/', include('account.urls', namespace='account')),
+    path('api/post/', include('post.urls', namespace='post')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

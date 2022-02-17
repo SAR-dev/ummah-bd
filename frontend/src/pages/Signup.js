@@ -63,6 +63,7 @@ function Signup() {
       w="100%"
       bgImage={WelcomeSVGBackground}
       bgSize={'cover'}
+      bgPosition={'center'}
       alignItems={'center'}
       justifyContent={'center'}
     >

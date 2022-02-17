@@ -36,3 +36,5 @@ export const signup = data => {
       return { error: error.response ? error.response.data : true };
     });
 };
+
+
